@@ -1,4 +1,4 @@
-# Like-atanlari-kopyalama-1
+# Like-atanlari-kopyalama-Virgül
 
 ### ADIM 1
 
