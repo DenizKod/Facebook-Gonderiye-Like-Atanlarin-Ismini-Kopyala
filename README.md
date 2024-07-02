@@ -1,4 +1,4 @@
-# Like-atanlari-kopyalama-Virgül
+# FACEBOOK LİKE ATANLARIN İSİMLERİNİ VİRGÜL VİRGÜL AYIRARAK KOPYALAMA
 
 ### ADIM 1
 
@@ -6,18 +6,16 @@
 <p>- Tampermonkey eklentisi tarayıcınıza ekleyin</p>
 <p>- Yeni Betik oluştura tıklayın</p>
 
-![image](https://github.com/DenizKod/ARK-ISTEGI-IPTAL-ETME/assets/168285638/7e1b2696-803e-447a-ae3f-f7844a44d28f)
+![image](https://github.com/DenizKod/ARK-ISTEGI-IPTAL-ETME/assets/168285638/7e1b2696-803e-447a-ae3f-f7844a44d28f) ![image](https://github.com/DenizKod/Facebook-Gonderiye-Like-Atanlarin-Ismini-Kopyala/assets/168285638/75139f78-5bf0-4191-be69-c22be4a2602b)
+
 
 ### Aşağıdaki kodu kopyala yeni betik sayfasındaki tüm kodları baştan sona sil ve bunu ekle.
 ```
 // ==UserScript==
-// @name         Facebook Beğeni Listesi Kopyalayıcı - F4 ile Kopyala, Virgülle Ayır
+// @name         Facebook Beğeni Listesi Kopyalayıcı - F4 ile Kopyala
 // @namespace    http://tampermonkey.net/
-// @version      0.3
-// @description  Facebook postlarında F4 tuşu ile beğeni yapan kullanıcıların isimlerini virgülle ayırarak kopyala
-// @author       You
-// @match        www.facebook.com/groups/bgyagain3*
-// @grant        none
+// @description  Facebook postlarında F4 tuşu ile beğeni yapan kullanıcıların isimlerini düzgün bir şekilde kopyala
+// @match        *.facebook.com/*
 // ==/UserScript==
 
 (function() {
@@ -64,13 +62,47 @@
 ![image](https://github.com/DenizKod/Like-atanlari-kopyalama-1/assets/168285638/98702393-18e4-4093-8ae3-e339936bbde8)
 
 
-(kodun içindeki bu kısım; kodun hangi sayfada çalışacağını belirler)</p>
-![image](https://github.com/DenizKod/Like-atanlari-kopyalama-1/assets/168285638/e757b9c2-c263-40fb-9e74-3ac2c3d325f9)
+# LİKE ATANLARIN İSİMLERİNİ ALT ALTA OLACAK ŞEKİLDE KOPYALAMA
+
+![image](https://github.com/DenizKod/Facebook-Gonderiye-Like-Atanlarin-Ismini-Kopyala/assets/168285638/821cf9d7-4798-42f5-b8e6-26d15a0cb419)
 
 
-<p>- www.facebook.com/groups/gamingbgy2* sadece gaming'de çalışır</p>
-<p>- www.facebook.com/groups/bgystonks2* sadece Stonks grubunda çalşışır</p>
-<p>- www.facebook.com/profile.php?id=100079957152392* Ömer Serdar Özkan Profilinde çalışır<p>
-<p>- www.facebook.com Tüm facebook üzerinde çalışır.</p>
+```
+// ==UserScript==
+// @name         Facebook Beğeni Listesi Kopyalayıcı - F4 ile Kopyala
+// @namespace    http://tampermonkey.net/
+// @description  Facebook postlarında F4 tuşu ile beğeni yapan kullanıcıların isimlerini düzgün bir şekilde kopyala
+// @match        *.facebook.com/*
+// ==/UserScript==
 
-<p>başka grupta kullanmak istiyorsan TEK YAPMAN GEREKEN @MATCH kısmındaki linki değiştirmek.</p>
+(function() {
+    'use strict';
+
+    // Klavye olayını dinle
+    document.addEventListener('keydown', function(e) {
+        // F4 tuşuna basıldığında işlemi gerçekleştir
+        if (e.key === 'F4') {
+            e.preventDefault();  // F4'ün varsayılan işlevini engelle
+
+            // Beğeni yapanların listesini seç
+            var likeList = document.querySelectorAll('div[data-visualcompletion="ignore-dynamic"] a[role="link"]');
+            var names = [];
+            likeList.forEach(function(user) {
+                // İsimleri al ve boşluklardan temizle
+                var name = user.getAttribute("aria-label");
+                if (name && name !== "Herkesi görmek için bağlantı") {  // spesifik metni hariç tut
+                    name = name.trim();  // trim işlemi burada yapılıyor
+                    names.push(name);
+                }
+            });
+
+            // İsimleri panoya kopyala
+            navigator.clipboard.writeText(names.join('\n')).then(function() {
+                alert("Başarıyla kopyalandı: " + names.length + " kullanıcı.");
+            }, function() {
+                alert("Kopyalama başarısız!");
+            });
+        }
+    });
+})();
+```
